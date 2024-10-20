@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Earn</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e9ecef;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .instructions {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .balance-display {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .translate {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .withdraw-button {
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+        .alert {
+            display: none; /* Initially hidden */
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 id="page-title">Welcome to Click to Earn</h1>
+            <p id="page-description">Click the button below to start earning!</p>
+        </div>
+        <div class="translate">
+            <label for="language-select" id="translate-label">Translate Page:</label>
+            <select id="language-select" class="form-control" style="width: auto; display: inline-block;">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="ru">Русский</option>
+                <option value="it">Italiano</option>
+                <option value="pt">Português</option>
+                <option value="uk">Українська</option>
+                <option value="pl">Polski</option>
+                <option value="cz">Čeština</option>
+                <option value="ro">Română</option>
+                <option value="hu">Magyar</option>
+                <option value="bg">Български</option>
+                <option value="sk">Slovenčina</option>
+                <option value="sl">Slovenščina</option>
+                <option value="lt">Lietuvių</option>
+                <option value="lv">Latviešu</option>
+                <option value="et">Eesti</option>
+            </select>
+        </div>
+        <div class="button-container">
+            <button id="click-button" class="btn btn-primary btn-lg">Click Me!</button>
+        </div>
+        <div class="instructions">
+            <h5 id="instructions-title">Instructions:</h5>
+            <p id="instructions-text-1">Every time you click the button, you earn between $0.02 and $0.04.</p>
+            <p id="instructions-text-2">You need to have $20.00 to withdraw.</p>
+        </div>
+        <div class="balance-display text-center">
+            <h3>Your Balance: $<span id="balance">0.00</span></h3>
+        </div>
+        <div class="alert alert-warning text-center" id="withdraw-alert">
+            You need to have $20.00 to withdraw.
+        </div>
+        <div class="button-container">
+            <button id="withdraw-button" class="btn btn-success btn-lg withdraw-button" disabled>Withdraw $20</button>
+        </div>
+        <div class="footer">
+            <p>© 2024 Click to Earn. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Welcome to Click to Earn",
+                description: "Click the button below to start earning!",
+                translateLabel: "Translate Page:",
+                instructionsTitle: "Instructions:",
+                instructionsText1: "Every time you click the button, you earn between $0.02 and $0.04.",
+                instructionsText2: "You need to have $20.00 to withdraw."
+            },
+            es: {
+                title: "Bienvenido a Click to Earn",
+                description: "¡Haz clic en el botón de abajo para empezar a ganar!",
+                translateLabel: "Traducir página:",
+                instructionsTitle: "Instrucciones:",
+                instructionsText1: "Cada vez que hagas clic en el botón, ganas entre $0.02 y $0.04.",
+                instructionsText2: "Necesitas tener $20.00 para retirar."
+            },
+            fr: {
+                title: "Bienvenue sur Click to Earn",
+                description: "Cliquez sur le bouton ci-dessous pour commencer à gagner !",
+                translateLabel: "Traduire la page :",
+                instructionsTitle: "Instructions :",
+                instructionsText1: "Chaque fois que vous cliquez sur le bouton, vous gagnez entre 0,02 $ et 0,04 $.",
+                instructionsText2: "Vous devez avoir 20,00 $ pour retirer."
+            },
+            de: {
+                title: "Willkommen bei Click to Earn",
+                description: "Klicken Sie auf die Schaltfläche unten, um zu beginnen zu verdienen!",
+                translateLabel: "Seite übersetzen:",
+                instructionsTitle: "Anweisungen:",
+                instructionsText1: "Jedes Mal, wenn Sie auf die Schaltfläche klicken, verdienen Sie zwischen 0,02 $ und 0,04 $.",
+                instructionsText2: "Sie müssen 20,00 $ haben, um abzuheben."
+            },
+            ru: {
+                title: "Добро пожаловать в Click to Earn",
+                description: "Нажмите кнопку ниже, чтобы начать зарабатывать!",
+                translateLabel: "Перевести страницу:",
+                instructionsTitle: "Инструкции:",
+                instructionsText1: "Каждый раз, когда вы нажимаете кнопку, вы зарабатываете от 0,02 до 0,04 долларов.",
+                instructionsText2: "Вам нужно иметь 20,00 долларов для вывода."
+            },
+            it: {
+                title: "Benvenuto su Click to Earn",
+                description: "Fai clic sul pulsante qui sotto per iniziare a guadagnare!",
+                translateLabel: "Traduci pagina:",
+                instructionsTitle: "Istruzioni:",
+                instructionsText1: "Ogni volta che fai clic sul pulsante, guadagni tra 0,02 $ e 0,04 $.",
+                instructionsText2: "Devi avere 20,00 $ per prelevare."
+            },
+            pt: {
+                title: "Bem-vindo ao Click to Earn",
+                description: "Clique no botão abaixo para começar a ganhar!",
+                translateLabel: "Traduzir página:",
+                instructionsTitle: "Instruções:",
+                instructionsText1: "Cada vez que você clica no botão, você ganha entre 0,02 $ e 0,04 $.",
+                instructionsText2: "Você precisa ter 20,00 $ para sacar."
+            },
+            uk: {
+                title: "Ласкаво просимо до Click to Earn",
+                description: "Натисніть кнопку нижче, щоб почати заробляти!",
+                translateLabel: "Перекласти сторінку:",
+                instructionsTitle: "Інструкції:",
+                instructionsText1: "Кожного разу, коли ви натискаєте кнопку, ви заробляєте від 0,02 до 0,04 долара.",
+                instructionsText2: "Вам потрібно мати 20,00 доларів для виведення."
+            },
+            pl: {
+                title: "Witamy w Click to Earn",
+                description: "Kliknij przycisk poniżej, aby zacząć zarabiać!",
+                translateLabel: "Przetłumacz stronę:",
+                instructionsTitle: "Instrukcje:",
+                instructionsText1: "Za każdym razem, gdy klikniesz przycisk, zarabiasz od 0,02 do 0,04 USD.",
+                instructionsText2: "Musisz mieć 20,00 USD, aby wypłacić."
+            },
+            cz: {
+                title: "Vítejte v Click to Earn",
+                description: "Klikněte na tlačítko níže a začněte vydělávat!",
+                translateLabel: "Přeložit stránku:",
+                instructionsTitle: "Pokyny:",
+                instructionsText1: "Každým kliknutím na tlačítko vyděláte mezi 0,02 a 0,04 USD.",
+                instructionsText2: "Musíte mít 20,00 USD, abyste mohli vybrat."
+            },
+            ro: {
+                title: "Bine ați venit la Click to Earn",
+                description: "Faceți clic pe butonul de mai jos pentru a începe să câștigați!",
+                translateLabel: "Tradu pagina:",
+                instructionsTitle: "Instruțiuni:",
+                instructionsText1: "De fiecare dată când faceți clic pe buton, câștigați între 0,02 și 0,04 dolari.",
+                instructionsText2: "Trebuie să aveți 20,00 USD pentru a retrage."
+            },
+            hu: {
+                title: "Üdvözöljük a Click to Earn oldalon",
+                description: "Kattintson az alábbi gombra, hogy elkezdjen keresni!",
+                translateLabel: "Oldal fordítása:",
+                instructionsTitle: "Utmutató:",
+                instructionsText1: "Minden alkalommal, amikor rákattint a gombra, 0,02 és 0,04 dollár között keres.",
+                instructionsText2: "A kivonáshoz 20,00 dollárra van szüksége."
+            },
+            bg: {
+                title: "Добре дошли в Click to Earn",
+                description: "Натиснете бутона по-долу, за да започнете да печелите!",
+                translateLabel: "Преведи страницата:",
+                instructionsTitle: "Инструкции:",
+                instructionsText1: "Всеки път, когато натиснете бутона, печелите между 0,02 и 0,04 долара.",
+                instructionsText2: "Трябва да имате 20,00 долара, за да изтеглите."
+            },
+            sk: {
+                title: "Vitajte na Click to Earn",
+                description: "Kliknite na tlačidlo nižšie a začnite zarábať!",
+                translateLabel: "Preložiť stránku:",
+                instructionsTitle: "Pokyny:",
+                instructionsText1: "Každým kliknutím na tlačidlo zarobíte medzi 0,02 a 0,04 dolárov.",
+                instructionsText2: "Musíte mať 20,00 USD na výber."
+            },
+            sl: {
+                title: "Dobrodošli na Click to Earn",
+                description: "Kliknite na gumb spodaj, da začnete zaslužiti!",
+                translateLabel: "Prevedi stran:",
+                instructionsTitle: "Navodila:",
+                instructionsText1: "Vsakič, ko kliknete na gumb, zaslužite med 0,02 in 0,04 dolarjev.",
+                instructionsText2: "Morate imeti 20,00 USD, da lahko dvignete."
+            },
+            lt: {
+                title: "Sveiki atvykę į Click to Earn",
+                description: "Paspauskite žemiau esantį mygtuką, kad pradėtumėte uždirbti!",
+                translateLabel: "Išversti puslapį:",
+                instructionsTitle: "Instrukcijos:",
+                instructionsText1: "Kiekvieną kartą paspaudus mygtuką, uždirbate nuo 0,02 iki 0,04 dolerio.",
+                instructionsText2: "Jums reikia turėti 20,00 USD, kad galėtumėte atsiimti."
+            },
+            lv: {
+                title: "Laipni lūdzam uz Click to Earn",
+                description: "Noklikšķiniet uz zemāk esošā pogas, lai sāktu pelnīt!",
+                translateLabel: "Pārvērst lapu:",
+                instructionsTitle: "Norādījumi:",
+                instructionsText1: "Katru reizi, kad noklikšķināt uz pogas, jūs nopelnāt no 0,02 līdz 0,04 dolāriem.",
+                instructionsText2: "Jums ir jābūt 20,00 USD, lai izņemtu."
+            },
+            et: {
+                title: "Tere tulemast Click to Earn",
+                description: "Klõpsake allolevat nuppu, et alustada teenimist!",
+                translateLabel: "Tõlgi leht:",
+                instructionsTitle: "Juhised:",
+                instructionsText1: "Iga kord, kui klõpsate nupule, teenite vahemikus 0,02–0,04 dollarit.",
+                instructionsText2: "Te peate olema 20,00 dollarit, et välja võtta."
+            },
+        };
+
+        // Initialize balance from localStorage
+        let balance = parseFloat(localStorage.getItem('balance')) || 0;
+        document.getElementById('balance').textContent = balance.toFixed(2);
+
+        // Update withdraw button visibility and state
+        function updateWithdrawButton() {
+            const withdrawButton = document.getElementById('withdraw-button');
+            const withdrawAlert = document.getElementById('withdraw-alert');
+
+            if (balance >= 20) {
+                withdrawButton.disabled = false;
+                withdrawButton.style.display = 'block';
+                withdrawAlert.style.display = 'none';
+            } else {
+                withdrawButton.disabled = true;
+                withdrawButton.style.display = 'none';
+                withdrawAlert.style.display = 'block';
+            }
+        }
+
+        // Click button functionality
+        document.getElementById('click-button').addEventListener('click', function() {
+            // Generate a random amount between 0.02 and 0.04
+            let earnings = (Math.random() * (0.04 - 0.02) + 0.02).toFixed(2);
+            balance += parseFloat(earnings);
+            localStorage.setItem('balance', balance.toFixed(2));
+            document.getElementById('balance').textContent = balance.toFixed(2);
+            updateWithdrawButton();
+        });
+
+        // Withdraw button functionality
+        document.getElementById('withdraw-button').addEventListener('click', function() {
+            if (balance >= 20) {
+                balance = 0; // Reset balance after withdrawal
+                localStorage.setItem('balance', balance.toFixed(2));
+                document.getElementById('balance').textContent = balance.toFixed(2);
+                updateWithdrawButton();
+                alert('You have successfully withdrawn $20!');
+            }
+        });
+
+        // Language translation functionality
+        document.getElementById('language-select').addEventListener('change', function() {
+            const lang = this.value;
+            document.getElementById('page-title').textContent = translations[lang].title;
+            document.getElementById('page-description').textContent = translations[lang].description;
+            document.getElementById('translate-label').textContent = translations[lang].translateLabel;
+            document.getElementById('instructions-title').textContent = translations[lang].instructionsTitle;
+            document.getElementById('instructions-text-1').textContent = translations[lang].instructionsText1;
+            document.getElementById('instructions-text-2').textContent = translations[lang].instructionsText2;
+        });
+
+        updateWithdrawButton();
+    </script>
+</body>
+</html>
+
+
