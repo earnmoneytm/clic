@@ -1,330 +1,489 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click to Earn</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Earn Money by Clicking Ads!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* General styles */
         body {
-            background-color: #e9ecef;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #f4f4f4;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #3F51B5;
+            width: 100%;
             padding: 20px;
-            font-family: Arial, sans-serif;
-        }
-        .header {
+            color: white;
             text-align: center;
-            margin-bottom: 30px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
-        .button-container {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .instructions {
-            margin-top: 20px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-        .balance-display {
-            margin-top: 20px;
+
+        #balance-display {
+            font-size: 1.8rem;
+            margin-top: 10px;
             font-weight: bold;
-            font-size: 1.5rem;
         }
-        .translate {
-            margin-bottom: 20px;
+
+        #translator {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        main {
+            margin-top: 80px;
             text-align: center;
+            width: 90%;
+            max-width: 1200px;
         }
-        .withdraw-button {
-            margin-top: 20px;
-            display: none; /* Initially hidden */
+
+        .instructions {
+            margin: 60px 0;
+            font-size: 1.2rem;
+            color: #333;
+            padding: 10px; /* Added padding */
         }
-        .alert {
-            display: none; /* Initially hidden */
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-        .btn-success {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
-        }
-        .footer {
+
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
             margin-top: 30px;
+        }
+
+        .offer-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
             text-align: center;
-            color: #6c757d;
+        }
+
+        .offer-section:hover {
+            transform: scale(1.02);
+        }
+
+        .offer-title {
+            font-size: 1.4rem;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .offer-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            margin-top: 20px; /* Added margin for the button */
+            transition: background-color 0.3s ease;
+        }
+
+        .offer-button:hover {
+            background-color: #388E3C;
+        }
+
+        .withdraw-section {
+            margin-top: 40px;
+            font-size: 1.3rem;
+        }
+
+        #withdraw-button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        #withdraw-button:enabled {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            background-color: #eeeeee;
+            width: 100%;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .claim-button {
+            background-color: #FF9800;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .claim-button:hover {
+            background-color: #F57C00;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1 id="page-title">Welcome to Click to Earn</h1>
-            <p id="page-description">Click the button below to start earning!</p>
+  
+    <header>
+        <h1 id="page-title">Earn Money by Clicking Ads!</h1>
+        <div id="balance-display">
+            Balance: $<span id="balance">0.00</span>
         </div>
-        
-        <div class="translate">
-            <label for="language-select" id="translate-label">Translate Page:</label>
-            <select id="language-select" class="form-control" style="width: auto; display: inline-block;">
+        <div id="translator">
+            <select id="languageSelect" onchange="translatePage()">
                 <option value="en">English</option>
                 <option value="es">Español</option>
                 <option value="fr">Français</option>
                 <option value="de">Deutsch</option>
                 <option value="ru">Русский</option>
-                <option value="it">Italiano</option>
-                <option value="pt">Português</option>
                 <option value="uk">Українська</option>
                 <option value="pl">Polski</option>
-                <option value="cz">Čeština</option>
+                <option value="it">Italiano</option>
+                <option value="pt">Português</option>
                 <option value="ro">Română</option>
-                <option value="hu">Magyar</option>
                 <option value="bg">Български</option>
+                <option value="cs">Čeština</option>
                 <option value="sk">Slovenčina</option>
-                <option value="sl">Slovenščina</option>
+                <option value="hu">Magyar</option>
                 <option value="lt">Lietuvių</option>
                 <option value="lv">Latviešu</option>
                 <option value="et">Eesti</option>
             </select>
         </div>
+    </header>
+  
+    <main>
+        <section class="instructions">
+            <h2 id="instructions-title">Instructions:</h2>
+            <p id="instructions-text">
+                Earn between $0.02 and $0.04 per ad click. <br>
+                Earn $5 if you register on the ad. <br>
+                Register on the ad and maximize your earnings!
+            </p>
+        </section>
 
-        <!-- Corrected button structure -->
-        <div class="button-container">
-            <a href="https://www.cpmrevenuegate.com/vwaw0qafj?key=1d872ac80c4317cab3f236b0ea0c806f" target="_blank" id="click-button" class="btn btn-primary btn-lg">Click Me!</a>
+        <div class="offer-grid">
+            <section class="offer-section">
+                <h2 class="offer-title" id="offer-title">Earn $0.02 to $0.04 per click!</h2>
+                <a class="offer-button" href="https://www.cpmrevenuegate.com/vwaw0qafj?key=1d872ac80c4317cab3f236b0ea0c806f" target="_blank" onclick="startOffer(0.02)">Click Ad</a>
+            </section>
+            <section class="offer-section">
+                <h2 class="offer-title" id="offer-title-2">Earn $0.02 to $0.04 per click!</h2>
+                <a class="offer-button" href="https://www.cpmrevenuegate.com/vwaw0qafj?key=1d872ac80c4317cab3f236b0ea0c806f" target="_blank" onclick="startOffer(0.03)">Click Ad</a>
+            </section>
+            <section class="offer-section">
+                <h2 class="offer-title" id="offer-title-3">Earn $0.02 to $0.04 per click!</h2>
+                <a class="offer-button" href="https://www.cpmrevenuegate.com/vwaw0qafj?key=1d872ac80c4317cab3f236b0ea0c806f" target="_blank" onclick="startOffer(0.04)">Click Ad</a>
+            </section>
+            <section class="offer-section">
+                <h2 class="offer-title" id="offer-title-4">Earn $0.02 to $0.04 per click!</h2>
+                <a class="offer-button" href="https://www.cpmrevenuegate.com/vwaw0qafj?key=1d872ac80c4317cab3f236b0ea0c806f" target="_blank" onclick="startOffer(0.04)">Click Ad</a>
+            </section>
         </div>
 
-        <div class="instructions">
-            <h5 id="instructions-title">Instructions:</h5>
-            <p id="instructions-text-1">Every time you click the button, you earn between $0.02 and $0.04.</p>
-            <p id="instructions-text-2">You need to have $20.00 to withdraw.</p>
+        <div class="withdraw-section">
+            <p id="withdraw-info">You need a minimum of $20.00 to withdraw.</p>
+            <button id="withdraw-button" disabled onclick="withdraw()">Withdraw</button>
         </div>
+    </main>
 
-        <div class="balance-display text-center">
-            <h3>Your Balance: $<span id="balance">0.00</span></h3>
-        </div>
-
-        <div class="alert alert-warning text-center" id="withdraw-alert">
-            You need to have $20.00 to withdraw.
-        </div>
-
-        <div class="button-container">
-            <button id="withdraw-button" class="btn btn-success btn-lg withdraw-button" disabled>Withdraw $20</button>
-        </div>
-
-        <div class="footer">
-            <p>© 2024 Click to Earn. All rights reserved.</p>
+    <div class="modal" id="bonus-modal">
+        <div class="modal-content">
+            <h2 id="bonus-title">Welcome Bonus!</h2>
+            <p id="bonus-text">You have received a bonus of $5.00!</p>
+            <button class="claim-button" onclick="claimBonus()">Claim Bonus</button>
         </div>
     </div>
 
+    <footer>
+        <p id="footer-text">&copy; 2024 Earn Money by Clicking Ads! All rights reserved.</p>
+    </footer>
+
     <script>
-        const translations = {
-            en: {
-                title: "Welcome to Click to Earn",
-                description: "Click the button below to start earning!",
-                translateLabel: "Translate Page:",
-                instructionsTitle: "Instructions:",
-                instructionsText1: "Every time you click the button, you earn between $0.02 and $0.04.",
-                instructionsText2: "You need to have $20.00 to withdraw."
-            },
-            es: {
-                title: "Bienvenido a Click to Earn",
-                description: "¡Haz clic en el botón de abajo para empezar a ganar!",
-                translateLabel: "Traducir página:",
-                instructionsTitle: "Instrucciones:",
-                instructionsText1: "Cada vez que hagas clic en el botón, ganas entre $0.02 y $0.04.",
-                instructionsText2: "Necesitas tener $20.00 para retirar."
-            },
-            fr: {
-                title: "Bienvenue sur Click to Earn",
-                description: "Cliquez sur le bouton ci-dessous pour commencer à gagner !",
-                translateLabel: "Traduire la page :",
-                instructionsTitle: "Instructions :",
-                instructionsText1: "Chaque fois que vous cliquez sur le bouton, vous gagnez entre 0,02 $ et 0,04 $.",
-                instructionsText2: "Vous devez avoir 20,00 $ pour retirer."
-            },
-            de: {
-                title: "Willkommen bei Click to Earn",
-                description: "Klicken Sie auf den Button unten, um zu verdienen!",
-                translateLabel: "Seite übersetzen:",
-                instructionsTitle: "Anweisungen:",
-                instructionsText1: "Jedes Mal, wenn Sie auf den Button klicken, verdienen Sie zwischen 0,02 $ und 0,04 $.",
-                instructionsText2: "Sie müssen 20,00 $ haben, um abzuheben."
-            },
-            ru: {
-                title: "Добро пожаловать в Click to Earn",
-                description: "Нажмите кнопку ниже, чтобы начать зарабатывать!",
-                translateLabel: "Перевести страницу:",
-                instructionsTitle: "Инструкции:",
-                instructionsText1: "Каждый раз, когда вы нажимаете на кнопку, вы зарабатываете от 0,02 $ до 0,04 $.",
-                instructionsText2: "Вам нужно иметь 20,00 $, чтобы вывести средства."
-            },
-            it: {
-                title: "Benvenuto su Click to Earn",
-                description: "Clicca il pulsante qui sotto per iniziare a guadagnare!",
-                translateLabel: "Traduci pagina:",
-                instructionsTitle: "Istruzioni:",
-                instructionsText1: "Ogni volta che clicchi sul pulsante, guadagni tra $0,02 e $0,04.",
-                instructionsText2: "Devi avere $20,00 per prelevare."
-            },
-            pt: {
-                title: "Bem-vindo ao Click to Earn",
-                description: "Clique no botão abaixo para começar a ganhar!",
-                translateLabel: "Traduzir página:",
-                instructionsTitle: "Instruções:",
-                instructionsText1: "Sempre que clicar no botão, você ganha entre $0,02 e $0,04.",
-                instructionsText2: "Você precisa ter $20,00 para retirar."
-            },
-            uk: {
-                title: "Ласкаво просимо до Click to Earn",
-                description: "Натисніть кнопку нижче, щоб почати заробляти!",
-                translateLabel: "Перекласти сторінку:",
-                instructionsTitle: "Інструкції:",
-                instructionsText1: "Кожного разу, коли ви натискаєте кнопку, ви заробляєте від 0,02 $ до 0,04 $.",
-                instructionsText2: "Вам потрібно мати 20,00 $, щоб зняти."
-            },
-            pl: {
-                title: "Witamy w Click to Earn",
-                description: "Kliknij przycisk poniżej, aby zacząć zarabiać!",
-                translateLabel: "Przetłumacz stronę:",
-                instructionsTitle: "Instrukcje:",
-                instructionsText1: "Za każdym razem, gdy klikniesz przycisk, zarabiasz od 0,02 $ do 0,04 $.",
-                instructionsText2: "Musisz mieć 20,00 $, aby wypłacić."
-            },
-            cz: {
-                title: "Vítejte na Click to Earn",
-                description: "Klikněte na tlačítko níže, abyste začali vydělávat!",
-                translateLabel: "Přeložit stránku:",
-                instructionsTitle: "Pokyny:",
-                instructionsText1: "Pokaždé, když kliknete na tlačítko, vyděláte mezi 0,02 $ a 0,04 $.",
-                instructionsText2: "Pro výběr musíte mít 20,00 $."
-            },
-            ro: {
-                title: "Bine ați venit la Click to Earn",
-                description: "Apăsați butonul de mai jos pentru a începe să câștigați!",
-                translateLabel: "Traduceți pagina:",
-                instructionsTitle: "Instrucțiuni:",
-                instructionsText1: "De fiecare dată când apăsați butonul, câștigați între 0,02 $ și 0,04 $.",
-                instructionsText2: "Trebuie să aveți 20,00 $ pentru a retrage."
-            },
-            hu: {
-                title: "Üdvözöljük a Click to Earn oldalon",
-                description: "Kattintson az alábbi gombra a kereset megkezdéséhez!",
-                translateLabel: "Oldal fordítása:",
-                instructionsTitle: "Utasítások:",
-                instructionsText1: "Minden egyes kattintással 0,02 $ és 0,04 $ közötti összeget keresel.",
-                instructionsText2: "20,00 $-ra van szükséged a visszavonáshoz."
-            },
-            bg: {
-                title: "Добре дошли в Click to Earn",
-                description: "Кликнете бутона по-долу, за да започнете да печелите!",
-                translateLabel: "Преведи страницата:",
-                instructionsTitle: "Инструкции:",
-                instructionsText1: "Всеки път, когато кликнете на бутона, печелите между 0,02 $ и 0,04 $.",
-                instructionsText2: "Трябва да имате 20,00 $, за да изтеглите."
-            },
-            sk: {
-                title: "Vitajte na Click to Earn",
-                description: "Kliknite na tlačidlo nižšie, aby ste začali zarábať!",
-                translateLabel: "Preložiť stránku:",
-                instructionsTitle: "Pokyny:",
-                instructionsText1: "Zakaždým, keď kliknete na tlačidlo, zarobíte medzi 0,02 $ a 0,04 $.",
-                instructionsText2: "Pre výber musíte mať 20,00 $."
-            },
-            sl: {
-                title: "Dobrodošli v Click to Earn",
-                description: "Kliknite na spodnji gumb, da začnete zaslužiti!",
-                translateLabel: "Prevedi stran:",
-                instructionsTitle: "Navodila:",
-                instructionsText1: "Vsakič, ko kliknete na gumb, zaslužite med 0,02 $ in 0,04 $.",
-                instructionsText2: "Za dvig morate imeti 20,00 $."
-            },
-            lt: {
-                title: "Sveiki atvykę į Click to Earn",
-                description: "Spustelėkite mygtuką apačioje, kad pradėtumėte uždirbti!",
-                translateLabel: "Versti puslapį:",
-                instructionsTitle: "Instrukcijos:",
-                instructionsText1: "Kiekvieną kartą spustelėję mygtuką, uždirbate nuo 0,02 $ iki 0,04 $.",
-                instructionsText2: "Turite turėti 20,00 $, kad galėtumėte išsiimti."
-            },
-            lv: {
-                title: "Laipni lūdzam Click to Earn",
-                description: "Nospiediet pogu zemāk, lai sāktu pelnīt!",
-                translateLabel: "Tulkot lapu:",
-                instructionsTitle: "Norādījumi:",
-                instructionsText1: "Katru reizi, kad nospiežat pogu, jūs nopelnāt no 0,02 $ līdz 0,04 $.",
-                instructionsText2: "Lai veiktu izņemšanu, jums jābūt 20,00 $."
-            },
-            et: {
-                title: "Tere tulemast Click to Earn",
-                description: "Klõpsa alloleval nupul, et hakata teenima!",
-                translateLabel: "Tõlgi lehekülg:",
-                instructionsTitle: "Juhised:",
-                instructionsText1: "Iga kord, kui klõpsate nupul, teenite 0,02–0,04 $.",
-                instructionsText2: "Raha väljavõtmiseks peab teil olema 20,00 $."
-            }
-        };
-
-        // Initialize balance from localStorage
         let balance = parseFloat(localStorage.getItem('balance')) || 0;
-        document.getElementById('balance').textContent = balance.toFixed(2);
 
-        // Update withdraw button visibility and state
-        function updateWithdrawButton() {
-            const withdrawButton = document.getElementById('withdraw-button');
-            const withdrawAlert = document.getElementById('withdraw-alert');
+        function updateBalanceDisplay() {
+            document.getElementById('balance').innerText = balance.toFixed(2);
+            document.getElementById('withdraw-button').disabled = balance < 20;
+        }
 
+        function startOffer(amount) {
+            balance += amount;
+            localStorage.setItem('balance', balance);
+            updateBalanceDisplay();
+        }
+
+        function withdraw() {
             if (balance >= 20) {
-                withdrawButton.disabled = false;
-                withdrawButton.style.display = 'block';
-                withdrawAlert.style.display = 'none';
+                alert('Withdrawal successful!');
+                balance -= 20;
+                localStorage.setItem('balance', balance);
+                updateBalanceDisplay();
             } else {
-                withdrawButton.disabled = true;
-                withdrawButton.style.display = 'none';
-                withdrawAlert.style.display = 'block';
+                alert('You need at least $20.00 to withdraw.');
             }
         }
 
-        // Click button functionality
-        document.getElementById('click-button').addEventListener('click', function() {
-            // Generate a random amount between 0.02 and 0.04
-            let earnings = (Math.random() * (0.04 - 0.02) + 0.02).toFixed(2);
-            balance += parseFloat(earnings);
-            localStorage.setItem('balance', balance.toFixed(2));
-            document.getElementById('balance').textContent = balance.toFixed(2);
-            updateWithdrawButton();
-        });
+        function claimBonus() {
+    balance += 5; // Aumenta el saldo en $5
+    localStorage.setItem('balance', balance); // Guarda el nuevo saldo
+    updateBalanceDisplay(); // Actualiza la visualización del saldo
+    document.getElementById('bonus-modal').style.display = 'none'; // Oculta el modal
+    localStorage.setItem('bonusClaimed', 'true'); // Marca que el bono fue reclamado
+}
 
-        // Withdraw button functionality
-        document.getElementById('withdraw-button').addEventListener('click', function() {
-            if (balance >= 20) {
-                balance = 0; // Reset balance after withdrawal
-                localStorage.setItem('balance', balance.toFixed(2));
-                document.getElementById('balance').textContent = balance.toFixed(2);
-                updateWithdrawButton();
-                alert('You have successfully withdrawn $20!');
+function showBonusModal() {
+    const bonusClaimed = localStorage.getItem('bonusClaimed'); // Verifica si el bono ya fue reclamado
+    if (!bonusClaimed) { // Si el bono no ha sido reclamado
+        document.getElementById('bonus-modal').style.display = 'flex'; // Muestra el modal
+    }
+}
+
+// Verifica el estado del bono al cargar la página
+window.onload = function() {
+    updateBalanceDisplay(); // Actualiza la visualización del saldo
+    showBonusModal(); // Muestra el modal de bonificación si no ha sido reclamado
+};
+
+
+        // Translation logic
+        const translations = {
+            en: {
+                title: "Earn Money by Clicking Ads!",
+                instructionsTitle: "Instructions:",
+                instructionsText: "Earn between $0.02 and $0.04 per ad click. <br> Earn $5 if you register on the ad. <br> Register on the ad and maximize your earnings!",
+                offerTitle: "Earn $0.02 to $0.04 per click!",
+                withdrawInfo: "You need a minimum of $20.00 to withdraw.",
+                bonusTitle: "Welcome Bonus!",
+                bonusText: "You have received a bonus of $5.00!",
+                footerText: "&copy; 2024 Earn Money by Clicking Ads! All rights reserved."
+            },
+            es: {
+                title: "¡Gana dinero haciendo clic en anuncios!",
+                instructionsTitle: "Instrucciones:",
+                instructionsText: "Gana entre $0.02 y $0.04 por clic en anuncios. <br> Gana $5 si te registras en el anuncio. <br> ¡Regístrate en el anuncio y maximiza tus ganancias!",
+                offerTitle: "¡Gana $0.02 a $0.04 por clic!",
+                withdrawInfo: "Necesitas un mínimo de $20.00 para retirar.",
+                bonusTitle: "¡Bonificación de bienvenida!",
+                bonusText: "¡Has recibido una bonificación de $5.00!",
+                footerText: "&copy; 2024 ¡Gana dinero haciendo clic en anuncios! Todos los derechos reservados."
+            },
+            fr: {
+                title: "Gagnez de l'argent en cliquant sur des annonces !",
+                instructionsTitle: "Instructions :",
+                instructionsText: "Gagnez entre 0,02 $ et 0,04 $ par clic sur une annonce. <br> Gagnez 5 $ si vous vous inscrivez sur l'annonce. <br> Inscrivez-vous sur l'annonce et maximisez vos gains !",
+                offerTitle: "Gagnez de 0,02 $ à 0,04 $ par clic !",
+                withdrawInfo: "Vous avez besoin d'un minimum de 20,00 $ pour retirer.",
+                bonusTitle: "Bonus de bienvenue !",
+                bonusText: "Vous avez reçu un bonus de 5,00 $ !",
+                footerText: "&copy; 2024 Gagnez de l'argent en cliquant sur des annonces ! Tous droits réservés."
+            },
+            de: {
+                title: "Verdienen Sie Geld mit dem Klicken auf Anzeigen!",
+                instructionsTitle: "Anweisungen:",
+                instructionsText: "Verdienen Sie zwischen 0,02 $ und 0,04 $ pro Klick auf eine Anzeige. <br> Verdienen Sie 5 $, wenn Sie sich für die Anzeige registrieren. <br> Registrieren Sie sich bei der Anzeige und maximieren Sie Ihre Einnahmen!",
+                offerTitle: "Verdienen Sie 0,02 $ bis 0,04 $ pro Klick!",
+                withdrawInfo: "Sie benötigen mindestens 20,00 $, um abzuheben.",
+                bonusTitle: "Willkommensbonus!",
+                bonusText: "Sie haben einen Bonus von 5,00 $ erhalten!",
+                footerText: "&copy; 2024 Verdienen Sie Geld mit dem Klicken auf Anzeigen! Alle Rechte vorbehalten."
+            },
+            ru: {
+                title: "Зарабатывайте деньги, щелкая по рекламе!",
+                instructionsTitle: "Инструкции:",
+                instructionsText: "Зарабатывайте от 0,02 до 0,04 доллара за клик по рекламе. <br> Заработайте 5 долларов, если зарегистрируетесь на рекламе. <br> Зарегистрируйтесь на рекламе и максимизируйте свои доходы!",
+                offerTitle: "Зарабатывайте от 0,02 до 0,04 доллара за клик!",
+                withdrawInfo: "Вам необходимо минимум 20,00 долларов для вывода.",
+                bonusTitle: "Бонус за регистрацию!",
+                bonusText: "Вы получили бонус в размере 5,00 долларов!",
+                footerText: "&copy; 2024 Зарабатывайте деньги, щелкая по рекламе! Все права защищены."
+            },
+            uk: {
+                title: "Заробляйте гроші, натискаючи на рекламу!",
+                instructionsTitle: "Інструкції:",
+                instructionsText: "Заробляйте від 0,02 до 0,04 долара за клік на рекламу. <br> Заробіть 5 доларів, якщо зареєструєтеся на рекламі. <br> Зареєструйтесь на рекламі та максимізуйте свої доходи!",
+                offerTitle: "Заробляйте від 0,02 до 0,04 долара за клік!",
+                withdrawInfo: "Вам потрібно мінімум 20,00 доларів для виведення.",
+                bonusTitle: "Бонус за реєстрацію!",
+                bonusText: "Ви отримали бонус у розмірі 5,00 доларів!",
+                footerText: "&copy; 2024 Заробляйте гроші, натискаючи на рекламу! Усі права захищені."
+            },
+            pl: {
+                title: "Zarabiaj pieniądze, klikając w reklamy!",
+                instructionsTitle: "Instrukcje:",
+                instructionsText: "Zarabiaj od 0,02 do 0,04 dolara za kliknięcie w reklamę. <br> Zarób 5 dolarów, jeśli zarejestrujesz się w reklamie. <br> Zarejestruj się w reklamie i zmaksymalizuj swoje zarobki!",
+                offerTitle: "Zarabiaj od 0,02 do 0,04 dolara za kliknięcie!",
+                withdrawInfo: "Musisz mieć co najmniej 20,00 dolarów, aby wypłacić.",
+                bonusTitle: "Bonus powitalny!",
+                bonusText: "Otrzymałeś bonus w wysokości 5,00 dolarów!",
+                footerText: "&copy; 2024 Zarabiaj pieniądze, klikając w reklamy! Wszelkie prawa zastrzeżone."
+            },
+            it: {
+                title: "Guadagna soldi cliccando sugli annunci!",
+                instructionsTitle: "Istruzioni:",
+                instructionsText: "Guadagna tra $0.02 e $0.04 per clic. <br> Guadagna $5 se ti registri nell'annuncio. <br> Registrati nell'annuncio e massimizza i tuoi guadagni!",
+                offerTitle: "Guadagna $0.02 a $0.04 per clic!",
+                withdrawInfo: "Hai bisogno di un minimo di $20.00 per prelevare.",
+                bonusTitle: "Bonus di benvenuto!",
+                bonusText: "Hai ricevuto un bonus di $5.00!",
+                footerText: "&copy; 2024 Guadagna soldi cliccando sugli annunci! Tutti i diritti riservati."
+            },
+            pt: {
+                title: "Ganhe dinheiro clicando em anúncios!",
+                instructionsTitle: "Instruções:",
+                instructionsText: "Ganhe entre $0.02 e $0.04 por clique em anúncios. <br> Ganhe $5 se se registrar no anúncio. <br> Registre-se no anúncio e maximize seus ganhos!",
+                offerTitle: "Ganhe $0.02 a $0.04 por clique!",
+                withdrawInfo: "Você precisa de um mínimo de $20,00 para sacar.",
+                bonusTitle: "Bônus de boas-vindas!",
+                bonusText: "Você recebeu um bônus de $5,00!",
+                footerText: "&copy; 2024 Ganhe dinheiro clicando em anúncios! Todos os direitos reservados."
+            },
+            ro: {
+                title: "Câștigă bani făcând clic pe anunțuri!",
+                instructionsTitle: "Instrucciuni:",
+                instructionsText: "Câștigă între 0,02 și 0,04 $ pe clic. <br> Câștigă 5 $ dacă te înregistrezi pe anunț. <br> Înregistrează-te pe anunț și maximizează câștigurile!",
+                offerTitle: "Câștigă 0,02 până la 0,04 $ pe clic!",
+                withdrawInfo: "Trebuie să ai un minim de 20,00 $ pentru a retrage.",
+                bonusTitle: "Bonus de bun venit!",
+                bonusText: "Ai primit un bonus de 5,00 $!",
+                footerText: "&copy; 2024 Câștigă bani făcând clic pe anunțuri! Toate drepturile rezervate."
+            },
+            bg: {
+                title: "Спечелете пари, като щракнете върху реклами!",
+                instructionsTitle: "Инструкции:",
+                instructionsText: "Спечелете между $0.02 и $0.04 за клик върху реклама. <br> Спечелете $5, ако се регистрирате за рекламата. <br> Регистрирайте се за рекламата и максимизирайте печалбите си!",
+                offerTitle: "Спечелете $0.02 до $0.04 за клик!",
+                withdrawInfo: "Трябва да имате минимум $20.00, за да изтеглите.",
+                bonusTitle: "Бонус за добре дошли!",
+                bonusText: "Получихте бонус от $5.00!",
+                footerText: "&copy; 2024 Спечелете пари, като щракнете върху реклами! Всички права запазени."
+            },
+            cs: {
+                title: "Vydělávejte peníze kliknutím na reklamy!",
+                instructionsTitle: "Pokyny:",
+                instructionsText: "Vydělávejte mezi 0,02 $ a 0,04 $ za kliknutí. <br> Vydělejte 5 $, pokud se zaregistrujete na reklamě. <br> Zaregistrujte se na reklamu a maximalizujte své výdělky!",
+                offerTitle: "Vydělejte 0,02 až 0,04 $ za kliknutí!",
+                withdrawInfo: "Potřebujete minimálně 20,00 $, abyste mohli vybrat.",
+                bonusTitle: "Uvítací bonus!",
+                bonusText: "Obdrželi jste bonus ve výši 5,00 $!",
+                footerText: "&copy; 2024 Vydělávejte peníze kliknutím na reklamy! Všechna práva vyhrazena."
+            },
+            sk: {
+                title: "Zarábajte peniaze kliknutím na reklamy!",
+                instructionsTitle: "Pokyny:",
+                instructionsText: "Získajte medzi 0,02 a 0,04 $ za klik. <br> Získajte 5 $, ak sa zaregistrujete na reklame. <br> Zaregistrujte sa na reklame a maximalizujte svoje zárobky!",
+                offerTitle: "Získajte 0,02 až 0,04 $ za klik!",
+                withdrawInfo: "Na výber potrebujete minimálne 20,00 $.",
+                bonusTitle: "Uvítací bonus!",
+                bonusText: "Dostali ste bonus 5,00 $!",
+                footerText: "&copy; 2024 Zarábajte peniaze kliknutím na reklamy! Všetky práva vyhradené."
+            },
+            hu: {
+                title: "Keress pénzt hirdetésekre kattintva!",
+                instructionsTitle: "Utmutatás:",
+                instructionsText: "Keress 0,02 és 0,04 dollár között kattintásonként. <br> Keress 5 dollárt, ha regisztrálsz a hirdetésre. <br> Regisztrálj a hirdetésre és maximalizáld a bevételeidet!",
+                offerTitle: "Keress 0,02 és 0,04 dollár között kattintásonként!",
+                withdrawInfo: "Minimum 20,00 dollárt kell kivenned.",
+                bonusTitle: "Üdvözlő bónusz!",
+                bonusText: "Öt dolláros bónuszt kaptál!",
+                footerText: "&copy; 2024 Keress pénzt hirdetésekre kattintva! Minden jog fenntartva."
+            },
+            lt: {
+                title: "Uždirbkite pinigų paspaudę skelbimus!",
+                instructionsTitle: "Nurodymai:",
+                instructionsText: "Uždirbkite nuo 0,02 iki 0,04 dolerio už paspaudimą. <br> Uždirbkite 5 dolerius, jei užsiregistruosite skelbime. <br> Uždarykite skelbimą ir maksimaliai padidinkite savo pajamas!",
+                offerTitle: "Uždirbkite 0,02–0,04 dolerio už paspaudimą!",
+                withdrawInfo: "Jums reikia mažiausiai 20,00 dolerių, kad galėtumėte atsiimti.",
+                bonusTitle: "Sveikinimo premija!",
+                bonusText: "Gavote 5,00 dolerio premiją!",
+                footerText: "&copy; 2024 Uždirbkite pinigų paspaudę skelbimus! Visos teisės saugomos."
+            },
+            lv: {
+                title: "Pelni naudu, noklikšķinot uz reklāmām!",
+                instructionsTitle: "Norādījumi:",
+                instructionsText: "Pelniet no 0,02 līdz 0,04 dolāriem par klikšķi. <br> Pelniet 5 dolārus, ja reģistrējaties reklāmā. <br> Reģistrējieties reklāmā un maksimizējiet savus ienākumus!",
+                offerTitle: "Pelniet 0,02 līdz 0,04 dolārus par klikšķi!",
+                withdrawInfo: "Jums nepieciešami vismaz 20,00 dolāri, lai izņemtu.",
+                bonusTitle: "Laipni lūdzam bonusa!",
+                bonusText: "Jūs saņēmuši 5,00 dolāru bonusu!",
+                footerText: "&copy; 2024 Pelni naudu, noklikšķinot uz reklāmām! Visas tiesības aizsargātas."
+            },
+            et: {
+                title: "Kuidas teenida raha reklaamidele klikkides!",
+                instructionsTitle: "Juhised:",
+                instructionsText: "Teeni iga reklaami klikkimise eest $0,02 kuni $0,04. <br> Teenige 5 dollarit, kui registreerite reklaami. <br> Registreeru reklaamis ja maksimeeri oma sissetulekud!",
+                offerTitle: "Teeni $0,02 kuni $0,04 iga kliki eest!",
+                withdrawInfo: "Te peate välja võtma vähemalt 20,00 dollarit.",
+                bonusTitle: "Tere tulemast boonus!",
+                bonusText: "Olete saanud 5,00 dollari boonuse!",
+                footerText: "&copy; 2024 Teenige raha reklaamidele klikkides! Kõik õigused kaitstud."
             }
-        });
+        };
 
-        // Language translation functionality
-        document.getElementById('language-select').addEventListener('change', function() {
-            const lang = this.value;
-            document.getElementById('page-title').textContent = translations[lang].title;
-            document.getElementById('page-description').textContent = translations[lang].description;
-            document.getElementById('translate-label').textContent = translations[lang].translateLabel;
-            document.getElementById('instructions-title').textContent = translations[lang].instructionsTitle;
-            document.getElementById('instructions-text-1').textContent = translations[lang].instructionsText1;
-            document.getElementById('instructions-text-2').textContent = translations[lang].instructionsText2;
-        });
-
-        updateWithdrawButton();
+        function translatePage() {
+            const language = document.getElementById('languageSelect').value;
+            document.getElementById('page-title').innerText = translations[language].title;
+            document.getElementById('instructions-title').innerText = translations[language].instructionsTitle;
+            document.getElementById('instructions-text').innerHTML = translations[language].instructionsText;
+            document.getElementById('offer-title').innerText = translations[language].offerTitle;
+            document.getElementById('withdraw-info').innerText = translations[language].withdrawInfo;
+            document.getElementById('bonus-title').innerText = translations[language].bonusTitle;
+            document.getElementById('bonus-text').innerText = translations[language].bonusText;
+            document.getElementById('footer-text').innerHTML = translations[language].footerText;
+        }
     </script>
 </body>
 </html>
