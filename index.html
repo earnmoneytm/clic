@@ -5,43 +5,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SuperMegaPage: Earn $20 Fast!</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        /* Reset de estilos básicos */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Estilo del cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2e8bff, #1cb5e0);
             color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
+        /* Contenedor de la página */
         .container {
-            width: 80%;
-            margin: auto;
-            overflow: hidden;
-            padding: 20px;
+            width: 90%;
+            max-width: 600px;
             background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            text-align: center;
+            position: relative;
+            animation: float 1.5s ease-in-out infinite alternate;
         }
+        .container:hover {
+            transform: scale(1.05);
+        }
+
+        /* Animación de flotación */
+        @keyframes float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* Encabezado */
         h1 {
+            font-size: 2.5em;
             color: #2c3e50;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease forwards;
         }
+
+        /* Animación para encabezado */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Botón */
         a.button {
             display: inline-block;
-            font-size: 18px;
+            font-size: 20px;
             color: #fff;
-            background: #3498db;
-            padding: 10px 20px;
+            background: #e74c3c;
+            padding: 15px 25px;
+            border-radius: 50px;
             text-decoration: none;
-            border-radius: 5px;
-            margin: 20px 0;
-            transition: background 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+            transition: background 0.3s, transform 0.3s;
+            animation: pulse 1.5s infinite;
         }
         a.button:hover {
-            background: #2980b9;
+            background: #c0392b;
+            transform: scale(1.1);
         }
+
+        /* Animación de botón de pulso */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px rgba(231, 76, 60, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.7); }
+        }
+
+        /* Sección de notas */
         .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #777;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -64,13 +115,9 @@
             <li><strong>No Hidden Fees:</strong> What you earn is yours to keep!</li>
         </ul>
 
-        <h2>Don’t Miss Out!</h2>
         <p>This is your chance to earn some extra cash with minimal effort. Click the button below to get started!</p>
         
         <a href="https://www.mobtrk.link/link/45853" class="button">Earn $20 Now!</a>
-
-        <h3>Important Note:</h3>
-        <p>Please ensure that you read the terms and conditions of each offer. Your reward is subject to verification, so make sure to follow the instructions carefully!</p>
 
         <div class="footer">
             <p>If you have any questions or need assistance, feel free to reach out!</p>
@@ -79,4 +126,3 @@
     </div>
 </body>
 </html>
-
