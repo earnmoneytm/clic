@@ -3,125 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SuperMegaPage: Earn $20 Fast!</title>
+    <title>Earn $20 Fast – Your Reward Awaits!</title>
     <style>
-        /* Reset de estilos básicos */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Estilo del cuerpo */
+        /* Estilos básicos y diseño llamativo */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #2e8bff, #1cb5e0);
+            background: linear-gradient(135deg, #28a745, #1cb5e0);
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
-
-        /* Contenedor de la página */
         .container {
             width: 90%;
             max-width: 600px;
             background: #fff;
-            padding: 20px;
+            padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            transform: scale(1);
-            transition: transform 0.3s ease;
             text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
             position: relative;
             animation: float 1.5s ease-in-out infinite alternate;
         }
-        .container:hover {
-            transform: scale(1.05);
-        }
-
-        /* Animación de flotación */
         @keyframes float {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
+            100% { transform: translateY(-8px); }
         }
-
-        /* Encabezado */
         h1 {
             font-size: 2.5em;
-            color: #2c3e50;
-            margin-bottom: 20px;
+            color: #e74c3c;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 1s ease forwards;
+            margin-bottom: 15px;
         }
-
-        /* Animación para encabezado */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .highlight {
+            color: #28a745;
+            font-weight: bold;
         }
-
-        /* Botón */
-        a.button {
+        .button {
             display: inline-block;
             font-size: 20px;
             color: #fff;
-            background: #e74c3c;
+            background: #f39c12;
             padding: 15px 25px;
             border-radius: 50px;
             text-decoration: none;
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
-            transition: background 0.3s, transform 0.3s;
-            animation: pulse 1.5s infinite;
+            margin: 20px 0;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
+            transition: transform 0.3s, background 0.3s;
         }
-        a.button:hover {
-            background: #c0392b;
-            transform: scale(1.1);
+        .button:hover { background: #e67e22; transform: scale(1.1); }
+        .locked-button {
+            display: block;
+            background: #888;
+            color: #fff;
+            font-size: 22px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin: 20px auto;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
-
-        /* Animación de botón de pulso */
-        @keyframes pulse {
-            0% { box-shadow: 0 0 10px rgba(231, 76, 60, 0.4); }
-            100% { box-shadow: 0 0 20px rgba(231, 76, 60, 0.7); }
+        .steps, .reasons {
+            text-align: left;
+            margin: 20px 0;
         }
-
-        /* Sección de notas */
+        .steps li, .reasons li {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
         .footer {
-            margin-top: 30px;
             font-size: 0.9em;
             color: #666;
-            opacity: 0.9;
+            margin-top: 30px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>SuperMegaPage: Earn $20 Fast!</h1>
-        <p>Are you ready to make some quick cash? By completing just one simple offer, you can earn <strong>$20</strong>! It’s that easy!</p>
+        <h1>Earn $20 Fast!</h1>
+        <p>Complete a simple task and instantly earn <span class="highlight">$20</span>! Just follow the steps below to claim your reward.</p>
 
-        <h2>How It Works:</h2>
-        <ol>
-            <li><strong>Click the Link Below:</strong></li>
-            <li><strong>Complete an Offer:</strong> Choose any offer that interests you. It could be a survey, an app download, or any other simple task.</li>
-            <li><strong>Get Your Reward:</strong> After completing the offer, you will receive a confirmation message. Your <strong>$20 reward</strong> will be processed shortly!</li>
-        </ol>
-
-        <h2>Why Choose Us?</h2>
-        <ul>
-            <li><strong>Fast Payments:</strong> Receive your earnings quickly!</li>
-            <li><strong>Easy Offers:</strong> Simple tasks that you can complete in minutes.</li>
-            <li><strong>No Hidden Fees:</strong> What you earn is yours to keep!</li>
+        <h2>How to Get Started:</h2>
+        <ul class="steps">
+            <li><strong>1. Click Below:</strong> Start by clicking the link and completing the offer.</li>
+            <li><strong>2. Simple Task:</strong> Choose an easy offer: survey, download, or short activity.</li>
+            <li><strong>3. Claim Your Reward:</strong> Receive a confirmation, and your <span class="highlight">$20 reward</span> will be processed immediately!</li>
         </ul>
 
-        <p>This is your chance to earn some extra cash with minimal effort. Click the button below to get started!</p>
-        
-        <a href="https://www.mobtrk.link/link/45853" class="button">Earn $20 Now!</a>
+        <a href="https://www.mobtrk.link/link/45853" target="_blank" class="button">Earn $20 Now!</a>
+
+        <h2>Withdraw Your Reward:</h2>
+        <p>After completing the offer, you’ll be able to withdraw your <strong>$20</strong> reward!</p>
+        <a class="locked-button">Withdraw $20 (Locked)</a>
+
+        <h2>Why Choose Us?</h2>
+        <ul class="reasons">
+            <li><strong>Fast Payments:</strong> Payouts are processed quickly and securely.</li>
+            <li><strong>Easy to Complete:</strong> Just a few minutes and a few clicks.</li>
+            <li><strong>Get Paid Without Fees:</strong> All you earn is 100% yours to keep!</li>
+        </ul>
 
         <div class="footer">
-            <p>If you have any questions or need assistance, feel free to reach out!</p>
-            <p><em>Disclaimer: This offer is for informational purposes only. We encourage responsible participation in any offer or program.</em></p>
+            <p><em>Questions? Our support team is ready to assist you.</em></p>
+            <p><em>Disclaimer: Complete offers accurately to ensure rewards. Terms apply.</em></p>
         </div>
     </div>
 </body>
