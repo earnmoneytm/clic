@@ -8,8 +8,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #222;
+      color: #f4f4f4;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,23 +19,23 @@
     .landing-container {
       width: 90%;
       max-width: 400px;
-      background-color: #fff;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: #333;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
       border-radius: 8px;
       overflow: hidden;
       text-align: center;
     }
     header {
       padding: 20px;
-      background-color: #4CAF50;
+      background-color: #ff5722;
       color: white;
     }
     header h1 {
-      font-size: 1.8em;
+      font-size: 2em;
       margin: 0;
     }
     .main-content img {
-      width: 100%;
+      width: 80%;
       max-width: 200px;
       margin-top: 15px;
     }
@@ -43,18 +43,25 @@
       display: inline-block;
       padding: 15px 30px;
       margin: 20px 0;
-      background-color: #FFA500;
-      color: white;
+      background-color: #ffc107;
+      color: #222;
       font-size: 1.2em;
       font-weight: bold;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, transform 0.2s;
+      animation: pulse 1.5s infinite;
     }
     .cta-button:hover {
-      background-color: #ff7f00;
+      background-color: #ff9800;
+      transform: scale(1.05);
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
     }
     .how-it-works, .recommended-offers {
       padding: 20px;
@@ -62,15 +69,32 @@
     .recommended-offers ul {
       list-style: none;
       padding: 0;
+      color: #ffc107;
     }
     .recommended-offers ul li {
       padding: 10px 0;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid #444;
     }
     footer p {
       font-size: 0.9em;
-      color: #777;
+      color: #bbb;
       padding: 15px;
+    }
+    /* Timer */
+    .timer {
+      font-size: 1.5em;
+      color: #ff5722;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    /* Testimonial */
+    .testimonials {
+      font-size: 0.9em;
+      color: #bbb;
+      margin-top: 15px;
+      padding: 10px;
+      background: #444;
+      border-radius: 5px;
     }
   </style>
 </head>
@@ -87,6 +111,7 @@
   <section class="main-content">
     <img src="https://d1bzs82igjv2qp.cloudfront.net/products/20-usd-gift-card-usa-paypal-entire-updated-9.png" alt="$20 PayPal Gift Card">
     <a href="https://eradictrkr.com/pauldev" class="cta-button">Claim My Reward Now</a>
+    <div class="timer">Hurry! Offer expires in: <span id="countdown"></span></div>
   </section>
   
   <!-- How It Works -->
@@ -99,10 +124,16 @@
   <section class="recommended-offers">
     <h2>Recommended Offers</h2>
     <ul>
-      <li>Simple survey completion: <strong>Earn $20</strong></li>
-      <li>App download and sign-up: <strong>Get your reward</strong></li>
-      <li>Quick registration task: <strong>Unlock your $20</strong></li>
+      <li>Complete a survey: <strong>Earn $20</strong></li>
+      <li>Download an app: <strong>Get your reward</strong></li>
+      <li>Sign up: <strong>Unlock $20</strong></li>
     </ul>
+  </section>
+  
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <p>“Super easy and I got my $20 in minutes!” - <em>Alice, 26</em></p>
+    <p>“I didn’t believe it at first, but it works!” - <em>James, 34</em></p>
   </section>
   
   <!-- Footer -->
@@ -111,10 +142,19 @@
   </footer>
 </div>
 
+<script>
+  // Countdown Timer
+  const countdownEl = document.getElementById('countdown');
+  let timeLeft = 30;
+  setInterval(() => {
+    if (timeLeft > 0) {
+      timeLeft--;
+      countdownEl.textContent = timeLeft + ' seconds';
+    } else {
+      countdownEl.textContent = "Time's up! Refresh to claim.";
+    }
+  }, 1000);
+</script>
+
 </body>
 </html>
-
-
-
-
-
