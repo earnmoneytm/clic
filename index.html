@@ -96,6 +96,26 @@
       background: #444;
       border-radius: 5px;
     }
+    /* Profile image */
+    .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+      vertical-align: middle;
+      object-fit: cover; /* Ensure the image fits well inside the circle */
+    }
+    /* Star rating */
+    .stars {
+      color: #ffc107; /* Gold color */
+      font-size: 1.2em;
+      margin-top: 5px;
+    }
+    .testimonial {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 <body>
@@ -132,8 +152,16 @@
   
   <!-- Testimonials -->
   <section class="testimonials">
-    <p>“Super easy and I got my $20 in minutes!” - <em>Alice, 26</em></p>
-    <p>“I didn’t believe it at first, but it works!” - <em>James, 34</em></p>
+    <div class="testimonial">
+      <img src="https://img.asmedia.epimg.net/resizer/v2/D2LBT5SNCBAARO6THBBCBFACSQ.png?auth=a0ae3abb41b92e9fbef89d525befc39d77eb5617cf4df7922b150e363c594d32&width=736&height=414&smart=true" alt="Alice" class="profile-pic">
+      <p>“Super easy and I got my $20 in minutes!” - <em>Alice, 26</em></p>
+      <div class="stars">★★★★★</div>
+    </div>
+    <div class="testimonial">
+      <img src="https://ethic.es/wp-content/uploads/2022/11/Copia-de-image-19.jpg" alt="James" class="profile-pic">
+      <p>“I didn’t believe it at first, but it works!” - <em>James, 34</em></p>
+      <div class="stars">★★★★★</div>
+    </div>
   </section>
   
   <!-- Footer -->
