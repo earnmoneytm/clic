@@ -8,8 +8,8 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #222;
-      color: #f4f4f4;
+      background-color: #f7f7f7;
+      color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,32 +19,35 @@
     .landing-container {
       width: 90%;
       max-width: 400px;
-      background-color: #333;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+      background-color: #fff;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       overflow: hidden;
       text-align: center;
+      padding: 20px;
     }
     header {
       padding: 20px;
-      background-color: #ff5722;
+      background-color: #0070ba;
       color: white;
+      border-radius: 8px;
     }
     header h1 {
       font-size: 2em;
       margin: 0;
     }
     .main-content img {
-      width: 80%;
-      max-width: 200px;
-      margin-top: 15px;
+      width: 100%;
+      max-width: 250px;
+      margin-top: 20px;
+      border-radius: 8px;
     }
     .cta-button {
       display: inline-block;
       padding: 15px 30px;
       margin: 20px 0;
-      background-color: #ffc107;
-      color: #222;
+      background-color: #0070ba;
+      color: white;
       font-size: 1.2em;
       font-weight: bold;
       border: none;
@@ -52,62 +55,37 @@
       cursor: pointer;
       text-decoration: none;
       transition: background-color 0.3s, transform 0.2s;
-      animation: pulse 1.5s infinite;
     }
     .cta-button:hover {
-      background-color: #ff9800;
+      background-color: #005f8d;
       transform: scale(1.05);
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    .how-it-works, .recommended-offers {
-      padding: 20px;
-    }
-    .recommended-offers ul {
-      list-style: none;
-      padding: 0;
-      color: #ffc107;
-    }
-    .recommended-offers ul li {
-      padding: 10px 0;
-      border-bottom: 1px solid #444;
-    }
-    footer p {
-      font-size: 0.9em;
-      color: #bbb;
-      padding: 15px;
     }
     /* Timer */
     .timer {
       font-size: 1.5em;
-      color: #ff5722;
+      color: #0070ba;
       font-weight: bold;
       margin-top: 10px;
     }
     /* Testimonial */
     .testimonials {
       font-size: 0.9em;
-      color: #bbb;
-      margin-top: 15px;
-      padding: 10px;
-      background: #444;
+      color: #555;
+      margin-top: 20px;
+      padding: 20px;
+      background: #f2f2f2;
       border-radius: 5px;
     }
-    /* Profile image */
     .profile-pic {
       width: 50px;
       height: 50px;
       border-radius: 50%;
       margin-right: 10px;
       vertical-align: middle;
-      object-fit: cover; /* Ensure the image fits well inside the circle */
+      object-fit: cover;
     }
-    /* Star rating */
     .stars {
-      color: #ffc107; /* Gold color */
+      color: #ffc107;
       font-size: 1.2em;
       margin-top: 5px;
     }
@@ -115,6 +93,11 @@
       display: flex;
       align-items: center;
       margin-bottom: 15px;
+    }
+    footer {
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 20px;
     }
   </style>
 </head>
@@ -129,7 +112,7 @@
   
   <!-- Main Content -->
   <section class="main-content">
-    <img src="https://d1bzs82igjv2qp.cloudfront.net/products/20-usd-gift-card-usa-paypal-entire-updated-9.png" alt="$20 PayPal Gift Card">
+    <img src="https://therpgstore.com/wp-content/uploads/2022/03/Paypal-Gift-Card-20-USD.jpg" alt="$20 PayPal Gift Card">
     <a href="https://eradictrkr.com/pauldev" class="cta-button">Claim My Reward Now</a>
     <div class="timer">Hurry! Offer expires in: <span id="countdown"></span></div>
   </section>
@@ -186,3 +169,4 @@
 
 </body>
 </html>
+
