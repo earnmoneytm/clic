@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claim Your $20 PayPal Reward!</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <title>Claim Your $20 Reward!</title>
+  <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -19,11 +18,12 @@
     }
     .landing-container {
       width: 90%;
-      max-width: 800px; /* Aumenté el ancho */
+      max-width: 400px;
       background-color: #fff;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
       overflow: hidden;
+      text-align: center;
       padding: 20px;
     }
     header {
@@ -31,14 +31,16 @@
       background-color: #0070ba;
       color: white;
       border-radius: 8px;
-      text-align: center;
     }
     header h1 {
-      font-size: 2.2em;
+      font-size: 2em;
       margin: 0;
     }
-    header p {
-      font-size: 1.1em;
+    .main-content img {
+      width: 100%;
+      max-width: 250px;
+      margin-top: 20px;
+      border-radius: 8px;
     }
     .cta-button {
       display: inline-block;
@@ -52,20 +54,20 @@
       border-radius: 5px;
       cursor: pointer;
       text-decoration: none;
-      transition: background-color 0.3s, transform 0.2s, color 0.2s; /* Transición de color */
-      text-align: center;
+      transition: background-color 0.3s, transform 0.2s;
     }
     .cta-button:hover {
       background-color: #005f8d;
       transform: scale(1.05);
-      color: white; /* El color del texto permanece blanco */
     }
+    /* Timer */
     .timer {
       font-size: 1.5em;
       color: #0070ba;
       font-weight: bold;
       margin-top: 10px;
     }
+    /* Testimonial */
     .testimonials {
       font-size: 0.9em;
       color: #555;
@@ -85,6 +87,7 @@
     .stars {
       color: #ffc107;
       font-size: 1.2em;
+      margin-top: 5px;
     }
     .testimonial {
       display: flex;
@@ -95,7 +98,6 @@
       font-size: 0.9em;
       color: #888;
       margin-top: 20px;
-      text-align: center;
     }
   </style>
 </head>
@@ -105,35 +107,34 @@
   <!-- Header -->
   <header>
     <h1>Claim Your $20 PayPal Reward!</h1>
-    <p>Complete a simple task and claim your $20 instantly!</p>
+    <p>Complete a simple task and claim your $20 instantly.</p>
   </header>
   
   <!-- Main Content -->
-  <section class="main-content text-center">
-    <img src="https://therpgstore.com/wp-content/uploads/2022/03/Paypal-Gift-Card-20-USD.jpg" alt="$20 PayPal Gift Card" class="img-fluid mb-4" style="max-width: 250px;">
+  <section class="main-content">
+    <img src="https://therpgstore.com/wp-content/uploads/2022/03/Paypal-Gift-Card-20-USD.jpg" alt="$20 PayPal Gift Card">
     <a href="https://eradictrkr.com/pauldev" class="cta-button">Claim My Reward Now</a>
     <div class="timer">Hurry! Offer expires in: <span id="countdown"></span></div>
   </section>
   
   <!-- How It Works -->
   <section class="how-it-works">
-    <h2 class="text-center">How It Works</h2>
-    <p class="text-center">Just click the button, complete a quick task, and instantly earn $20!</p>
+    <h2>How It Works</h2>
+    <p>It’s easy! Just click the button, complete a quick task, and instantly earn $20!</p>
   </section>
   
   <!-- Recommended Offers -->
   <section class="recommended-offers">
-    <h3>Recommended Offers</h3>
-    <ul class="list-group">
-      <li class="list-group-item">Complete a survey: <strong>Earn $20</strong></li>
-      <li class="list-group-item">Download an app: <strong>Get your reward</strong></li>
-      <li class="list-group-item">Sign up: <strong>Unlock $20</strong></li>
+    <h2>Recommended Offers</h2>
+    <ul>
+      <li>Complete a survey: <strong>Earn $20</strong></li>
+      <li>Download an app: <strong>Get your reward</strong></li>
+      <li>Sign up: <strong>Unlock $20</strong></li>
     </ul>
   </section>
   
   <!-- Testimonials -->
   <section class="testimonials">
-    <h3 class="text-center">What Others Are Saying</h3>
     <div class="testimonial">
       <img src="https://img.asmedia.epimg.net/resizer/v2/D2LBT5SNCBAARO6THBBCBFACSQ.png?auth=a0ae3abb41b92e9fbef89d525befc39d77eb5617cf4df7922b150e363c594d32&width=736&height=414&smart=true" alt="Alice" class="profile-pic">
       <p>“Super easy and I got my $20 in minutes!” - <em>Alice, 26</em></p>
@@ -152,11 +153,6 @@
   </footer>
 </div>
 
-<!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
   // Countdown Timer
   const countdownEl = document.getElementById('countdown');
@@ -173,5 +169,6 @@
 
 </body>
 </html>
+
 
 
